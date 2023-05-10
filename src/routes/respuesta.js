@@ -11,35 +11,47 @@ router.get('/unidadUnoAgregar', (req,res) =>{
 })
 
 //Inserta una nueva pregunta
-router.post('/unidadUnoAgregar', async (req,res) =>{
+router.post('/EnviarRespuesta1', async (req,res) =>{
 
     try{
-
-    const { error } = schemasPreguntas.validate(req.body) ;
-    if (error) {
-      return res.status(400).json({ error: error.details[0].message });
-    }
-    else {
-    const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
-    const nuevaPregunta = {
-        idEvaAsoc: 1 ,
-        dificultad, 
-        tipoPregunta, 
-        enunciado, 
-        opcion: opciona + ";" + opcionb + ";" + opcionc + ";" + opciond, 
-        respuestaCorrecta, 
-        retroalimentacion
+        const validator =  await pool.query ('SELECT opcion, idpregunta FROM pregunta WHERE opcion = ? AND  idpregunta= ?  AND EXISTS ( SELECT * FROM estudiante WHERE idEstudiante = ?)', [req.body.valorRespuesta, req.body.idPreguntaAsociada, req.body.idEstudianteResponsable])
+        if(JSON.stringify(validator)=="[]"){
+            console.log("Esta opcion de respuesta es inexistente, no corresponde a una pregunta o el usuario no es un usuario con rol estudiante/admin")
+        }
+        else{   
+            const validator =  await pool.query ('SELECT opcion FROM pregunta WHERE ? = respuestaCorrecta', [req.body.valorRespuesta])
+            if(JSON.stringify(validator)=="[]"){
+                console.log("Respuesta Incorrecta")
+        }
+        else{
+            console.log("Respuesta Correcta")
+        }
     }
 
-    await pool.query('INSERT INTO pregunta set ?', [nuevaPregunta])
+    //const { error } = schemasPreguntas.validate(req.body) ;
+    //if (error) {
+    //  return res.status(400).json({ error: error.details[0].message });
+    //}
+    //else {
+    //const {idrespuesta, valorRespuesta, estado, idPreguntaAsociada, idEstudianteResponsable} = req.body;
+    //const nuevaPregunta = {
+     //   idEvaAsoc: 1 ,
+     //   dificultad, 
+     //   tipoPregunta, 
+     //   enunciado, 
+      //  opcion: opciona + ";" + opcionb + ";" + opcionc + ";" + opciond, 
+     //   respuestaCorrecta, 
+    //    retroalimentacion
+   // }
+
+   // await pool.query('INSERT INTO pregunta set ?', [nuevaPregunta])
     
-    res.send("Pregunta agregada de manera exitosa");
-}}
+    
+    }//}
 catch(error){
     console.error(error)
     res.send("ERROR EN LA PETICION" + error)
-}    
-})
+}    })
 
 //Consulta todas las preguntas de la base de datos
 router.get('/bancoPreguntas1',  async (req,res) =>{

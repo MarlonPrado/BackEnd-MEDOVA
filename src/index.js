@@ -37,6 +37,7 @@ app.use((req,res,next) => {
 app.use(require('./routes/routes'));
 app.use(require('./routes/register.js'));
 app.use('/evaluacion', require('./routes/evaluacion'));
+app.use('/respuesta', require('./routes/respuesta'));
 app.use(require('./routes/autentificacion'));
 
 //Public
