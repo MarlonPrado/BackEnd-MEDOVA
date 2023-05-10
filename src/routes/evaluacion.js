@@ -92,19 +92,17 @@ catch(error){
 router.get('/editarPregunta/:id',  async (req,res) =>{
     try{
 
-        const { error } = schemasPreguntas.validate(req.body) ;
-        if (error) {
-          return res.status(400).json({ error: error.details[0].message });
-        }
-
-        else{
         const id = req.params.id;
         console.log(id);
         const preguntas = await pool.query('SELECT * FROM pregunta WHERE idpregunta  = ?', [id]);
-        console.log(preguntas);
+        if(JSON.stringify(preguntas)=="[]"){
+            res.status(400).send("No existe dicha pregunta en la base de datos")
+        }
+        else{
         //res.render('evaluaciones/evaluacion1_Edit.hbs', {preguntas: preguntas[0]});
-        res.send({preguntas: preguntas[0]});
-}}
+        res.status(200).send({preguntas: preguntas[0]});
+        }
+}
 catch(error){
     console.error(error)
     res.send("ERROR EN LA PETICION" + error)
