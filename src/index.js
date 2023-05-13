@@ -35,10 +35,18 @@ app.use((req,res,next) => {
 
 //Rutas
 app.use(require('./routes/routes'));
+app.use(require('./routes/recuperarcontra'));
+app.use(require('./routes/contranueva'));
+app.use(require('./routes/login'));
+app.use(require('./routes/index'));
+app.use(require('./routes/usuario'));
+app.use(require('./routes/tablainformacion'));
+app.use(require('./routes/proceso'));
 app.use(require('./routes/register.js'));
-app.use('/evaluacion', require('./routes/evaluacion'));
+app.use(require('./routes/evaluacion'));
 app.use('/respuesta', require('./routes/respuesta'));
 app.use(require('./routes/autentificacion'));
+app.use(require('./routes/unidad11'));
 
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
