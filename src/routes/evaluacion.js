@@ -7,7 +7,7 @@ const joi = require('joi');
 //Banco de Preguntas - Modulo de inserccion de Preguntas
 //Mostrar el formulario de preguntas
 router.get('/unidadUnoAgregar', (req,res) =>{
-    res.render('evaluaciones/evaluacion1_Add.hbs');
+    res.render('page-bancopreguntas');
 })
 
 //Inserta una nueva pregunta
@@ -15,23 +15,45 @@ router.post('/unidadUnoAgregar', async (req,res) =>{
 
     try{
 
-    const { error } = schemasPreguntas.validate(req.body) ;
+    function obtenerRespuesta(indice) {
+            const opcion = [req.body.opciona, req.body.opcionb, req.body.opcionc, req.body.opciond];
+            const respuesta = opcion[indice - 1];
+            return respuesta;
+          }
+    
+    const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
+    const preguntaValidacion = {
+     
+        dificultad, 
+        tipoPregunta,   
+        enunciado, 
+        opciona,
+        opcionb,
+        opcionc,
+        opciond,
+        respuestaCorrecta: obtenerRespuesta(req.body.respuestaCorrecta), 
+        retroalimentacion
+    }
+    
+    const { error } = schemasPreguntas.validate(preguntaValidacion) ;
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
     else {
-    const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
-    const nuevaPregunta = {
-        idEvaAsoc: 1 ,
-        dificultad, 
-        tipoPregunta, 
-        enunciado, 
-        opcion: opciona + ";" + opcionb + ";" + opcionc + ";" + opciond, 
-        respuestaCorrecta, 
-        retroalimentacion
-    }
+
+        const nuevaPregunta = {
+            idEvaAsoc: 1,
+            dificultad, 
+            tipoPregunta,   
+            opcion: opciona + ";" + opcionb + ";" + opcionc + ";" + opciond,
+            respuestaCorrecta: obtenerRespuesta(req.body.respuestaCorrecta), 
+            retroalimentacion
+        }
+    
+  
 
     await pool.query('INSERT INTO pregunta set ?', [nuevaPregunta])
+    
     res.send("Pregunta agregada de manera exitosa");
 }}
 catch(error){

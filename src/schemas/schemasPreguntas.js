@@ -3,11 +3,11 @@ const joi = require('joi');
 const schemasPreguntas = joi.object({
     dificultad: joi.number().min(1).max(3).required(),
 
-    tipoPregunta: joi.string().regex(/^[a-zA-Z0-9]+$/).valid('SELECTUNIC', 'SELECTMULTI').regex(/^[a-zA-Z0-9]+$/).required(),
+    tipoPregunta: joi.string().regex(/^[a-zA-Z0-9]*$/).valid('SELECTUNIC', 'SELECTMULTI').regex(/^[a-zA-Z0-9]*$/).required(),
 
     enunciado: joi.string().min(1).max(1024).required(),
 
-    opciona: joi.string().min(1).max(112).required(),
+    opciona: joi.string().min(1).max(112).required().regex(/^[a-zA-Z0-9]*$/),
 
     opcionb: joi.string().min(1).max(112).invalid(joi.ref('opciona')).required(),
 
