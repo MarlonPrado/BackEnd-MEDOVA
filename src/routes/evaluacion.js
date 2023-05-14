@@ -53,7 +53,7 @@ router.post('/unidadUnoAgregar', async (req,res) =>{
   
 
     await pool.query('INSERT INTO pregunta set ?', [nuevaPregunta])
-    
+    req.flash('success', 'Listado de Preguntas Exitoso')
     res.send("Pregunta agregada de manera exitosa");
 }}
 catch(error){
@@ -67,8 +67,9 @@ router.get('/bancoPreguntas1',  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta');
     console.log(pregunta);
+   
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});
-    res.send(pregunta);
+    req.flash('success', 'Listado sasasde Preguntas Exitoso')
 }
 catch(error){
     console.error(error)

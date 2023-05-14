@@ -18,12 +18,18 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{!-- Estilos Personalizados --}}
-   
+
 </head>
 
 <body>
-   
+    {{#if success }}
+      <div class="alert alert-success alert-dismissible">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Exito!</strong> {{success}}
+  </div>
+    {{/if}}
 
+    
     {{{body}}}
 
 </body>

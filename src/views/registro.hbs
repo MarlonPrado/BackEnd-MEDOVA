@@ -42,40 +42,39 @@
 						<li class="nav-item">
 							<a class="nav-link" id="nav-forget-tab" data-bs-toggle="tab" href="#nav-forget" role="tab"
 								aria-controls="nav-forget" aria-selected="false">¿Olvidaste tu contraseña?</a>
-						</li>
+						</li>	
 					</ul>
 					<div class="tab-content" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="nav-personal" role="tabpanel"
 							aria-labelledby="nav-personal-tab">
-							<form class="dz-form">
+							<form action="/registro" method="POST" class="dz-form">
 								<div class="form-group mb-3">
 									<label for="nombre">Nombre</label>
-									<input type="text" id="nombre" class="form-control" required>
+										<input type="text" name="nombre" class="form-control" required>
 								</div>
 								<div class="form-group mb-3">
 									<label for="rol">Rol</label>
 									<select id="rol" class="form-control" required>
-										<option value="">Seleccione un rol</option>
-										<option value="administrador">Profesor</option>
-										<option value="vendedor">Alumno</option>
+										<option value="docente">Docente</option>
+										<option value="alumno">Alumno</option>
 									</select>
 								</div>
 								<div class="form-group mb-3">
 									<label for="codigo">Codigo</label>
-									<input type="number" id="codigo" class="form-control" required>
+									<input type="number" name="codigo" class="form-control" required>
 								</div>
 
 								<div class="form-group mb-3">
 									<label for="email">Correo</label>
-									<input type="email" id="correo" class="form-control" required>
+									<input type="email" name="correo" class="form-control" required>
 								</div>
 								<div class="form-group mb-3">
 									<label for="contrasena">Contraseña</label>
-									<input type="password" id="contrasena" class="form-control" required>
+									<input type="password" name="contrasena" class="form-control" required>
 								</div>
 								<div class="form-group mb-3">
 									<label for="password-confirm">Confirmar contraseña</label>
-									<input type="password" id="pcontrasena" class="form-control" required>
+									<input type="password" name="pcontrasena" class="form-control" required>
 								</div>
 								<div class="text-center">
 									<button class="btn btn-danger button-md btn-block" type="submit">Crear una
