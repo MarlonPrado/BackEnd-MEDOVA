@@ -46,66 +46,41 @@
         <!--********** navbar vertical*************-->
         {{> navbar}}
 
-
-        <div class="content-body">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Usuarios</h5>
-                    <br><br>
-                    <div class="table-responsive">
-                        <table class="table  mb-0">
-                            <table id="example" class="table table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Nombre</th>
-                                        <th>Rol</th>
-                                        <th>Codigo</th>
-                                        <th>Correo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Marlon Prado</td>
-                                        <td>Estudiante</td>
-                                        <td>1151924</td>
-                                        <td>marlon@ufps.edu.co</td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Marlon Prado</td>
-                                        <td>Estudiante</td>
-                                        <td>1151924</td>
-                                        <td>marlon@ufps.edu.co</td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Marlon Prado</td>
-                                        <td>Estudiante</td>
-                                        <td>1151924</td>
-                                        <td>marlon@ufps.edu.co</td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Marlon Prado</td>
-                                        <td>Estudiante</td>
-                                        <td>1151924</td>
-                                        <td>marlon@ufps.edu.co</td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Marlon Prado</td>
-                                        <td>Estudiante</td>
-                                        <td>1151924</td>
-                                        <td>marlon@ufps.edu.co</td>
-                                    </tr>
-                                <tbody>
-                            </table>
-                    </div>
-                </div>
+       <div class="content-body">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Usuarios</h5>
+            <br><br>
+            <div class="table-responsive">
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Código</th>
+                            <th>Usuario</th>
+                            <th>Opción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each usuario}}
+                        <tr>
+                            <td>{{idUsuario}}</td>
+                            <td>{{nombre}}</td>
+                            <td>{{rol}}</td>
+                            <td>{{codigo}}</td>
+                            <td>{{username}}</td>
+                            <td>Opción</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
+
 
     </div>
 
@@ -127,14 +102,14 @@
             var url = ''
             $('#example').DataTable({
 
-                "Ajax" :{
+                "Ajax": {
 
-                    "url" : url,
-                    "dataSrc" : ""
+                    "url": url,
+                    "dataSrc": ""
                 },
 
-                "columns":[
-                {"data":"id"}
+                "columns": [
+                    { "data": "id" }
                 ]
             });
         });

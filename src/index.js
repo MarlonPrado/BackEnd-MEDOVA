@@ -1,13 +1,21 @@
+
 const express = require('express');
 const morgan = require('morgan');
 const {engine} = require('express-handlebars');
 const path = require('path');
-const app = express();
+
 const session = require('express-session');
 const mysqlstore = require('express-mysql-session')(session);
 const flash = require('connect-flash');
 const { database }= require('./keys');
 const MySQLStore = require('express-mysql-session');
+const passport = require('passport');
+
+
+// Intializations
+const app = express();
+require('./lib/passport');
+
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', engine({
     defaultLayout: 'main',
@@ -18,11 +26,6 @@ app.engine('.hbs', engine({
 
 }));
 app.set('view engine', 'hbs');
-
-
-  
-
-  
 
 
 
@@ -38,11 +41,14 @@ app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended : false }));
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
  
 //Variables Globales
 
 app.use((req,res,next) => {
     app.locals.success = req.flash('success');
+    app.locals.error = req.flash('error');
     next();
 });
 
@@ -52,6 +58,11 @@ app.use(require('./routes/routes'));
 app.use(require('./routes/recuperarcontra'));
 app.use(require('./routes/contranueva'));
 app.use(require('./routes/login'));
+app.use(require('./routes/unidad12'));
+app.use(require('./routes/unidad13'));
+app.use(require('./routes/unidad14'));
+app.use(require('./routes/unidad15'));
+app.use(require('./routes/unidad16'));
 app.use(require('./routes/index'));
 app.use(require('./routes/usuario'));
 app.use(require('./routes/tablainformacion'));

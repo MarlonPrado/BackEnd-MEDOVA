@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db');
 const schemasPreguntas =  require('../schemas/schemasPreguntas');
 const joi = require('joi');
-
+const bcrypt = require('bcryptjs');
 //Banco de Preguntas - Modulo de inserccion de Preguntas
 //Mostrar el formulario de preguntas
 router.get('/unidadUnoAgregar', (req,res) =>{
@@ -52,7 +52,7 @@ router.post('/unidadUnoAgregar', async (req,res) =>{
     
   
 
-    await pool.query('INSERT INTO pregunta set ?', [nuevaPregunta])
+    await pool.query('INSERT INTO usuario set ?', [nuevaPregunta])
     req.flash('success', 'Listado de Preguntas Exitoso')
     res.send("Pregunta agregada de manera exitosa");
 }}
