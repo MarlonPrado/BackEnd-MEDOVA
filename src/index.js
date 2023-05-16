@@ -3,18 +3,16 @@ const express = require('express');
 const morgan = require('morgan');
 const {engine} = require('express-handlebars');
 const path = require('path');
-
-const session = require('express-session');
-const mysqlstore = require('express-mysql-session')(session);
+const jwt = require('jsonwebtoken');
 const flash = require('connect-flash');
 const { database }= require('./keys');
-const MySQLStore = require('express-mysql-session');
 const passport = require('passport');
-
-
+const session = require('express-session');
+const mysqlstore = require('express-mysql-session')(session);
+const MySQLStore = require('express-mysql-session');
+require('dotenv').config();
 // Intializations
 const app = express();
-require('./lib/passport');
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', engine({
@@ -30,13 +28,18 @@ app.set('view engine', 'hbs');
 
 
 app.set('PORT', process.env.PORT || 4000 );
-//Middlewares
-app.use(session({
+// Middleware para verificar el token de autenticación
+  
+
+  app.use(session({
     secret: 'mysecret',
     resave: false,
     saveUninitialized: true,
     store: new mysqlstore(database)
   }));
+
+        
+
 app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended : false }));

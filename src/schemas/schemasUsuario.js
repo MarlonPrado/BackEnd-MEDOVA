@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const schemasPreguntas = Joi.object({
-    nombre: Joi.string().min(1).max(112).required().regex(/^[a-zA-Z0-9]*$/),
+    nombre: Joi.string().min(1).max(112).regex(/^[A-Za-z\s]+$/).required(),
     codigo: Joi.number().integer().min(1150000).max(11599999).required(),
     username: Joi.string().required(),
     password: Joi.string().min(8).required(50).required(),
