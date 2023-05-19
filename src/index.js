@@ -29,7 +29,7 @@ app.set('view engine', 'hbs');
 
 app.set('PORT', process.env.PORT || 4000 );
 // Middleware para verificar el token de autenticación
-  
+    
 
   app.use(session({
     secret: 'mysecret',

@@ -37,7 +37,8 @@ router.post('/unidadUnoAgregar', async (req,res) =>{
     
     const { error } = schemasPreguntas.validate(preguntaValidacion) ;
     if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+        req.flash('error', error.details[0].message);
+        res.redirect('/unidadUnoAgregar');
     }
     else {
 
@@ -52,9 +53,9 @@ router.post('/unidadUnoAgregar', async (req,res) =>{
     
   
 
-    await pool.query('INSERT INTO usuario set ?', [nuevaPregunta])
-    req.flash('success', 'Listado de Preguntas Exitoso')
-    res.send("Pregunta agregada de manera exitosa");
+    await pool.query('INSERT INTO pregunta set ?', [nuevaPregunta])
+    req.flash('success', 'Listado de Preguntas cargado exitosamente')
+    res.redirect('/bancoPreguntas1');
 }}
 catch(error){
     console.error(error)
@@ -67,9 +68,10 @@ router.get('/bancoPreguntas1',  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta');
     console.log(pregunta);
-   
+    
+    res.render('respuestaslist', {pregunta });
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});
-    req.flash('success', 'Listado sasasde Preguntas Exitoso')
+    
 }
 catch(error){
     console.error(error)
@@ -83,7 +85,8 @@ router.get('/bancoPreguntas1/:id',  async (req,res) =>{
         console.log(id)
         const pregunta =  await pool.query('SELECT * FROM pregunta WHERE idpregunta  = ?', [id]);
         console.log(pregunta);
-        res.send(pregunta);
+       
+        
 }
 catch(error){
     console.error(error)
