@@ -45,35 +45,35 @@
 
         <!--********** navbar vertical*************-->
         {{> navbar}}
-
-       <div class="content-body">
+<div class="content-body">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Usuarios</h5>
             <br><br>
             <div class="table-responsive">
-                <table id="example" class="table table-striped" style="width:100%">
+                <table id="example" class="table table-striped" style="width:60%">
                     <thead>
                         <tr>
-                            <th>idpregunta</th>
+                       
                             <th>enunciado</th>
-                             <th>dificultad</th>
+                            <th>dificultad</th>
                             <th>opcion</th>
                             <th>respuestaCorrecta</th>
                             <th>retroalimentacion</th>
+                             <th>opcion</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each pregunta}}
                         <tr>
-                            <td>{{idpregunta}}</td>
-                            <td>{{enunciado}}</td>
+                            <td style="word-break: break-word;">{{enunciado}}</td>
                             <td>{{dificultad}}</td>
                             <td>{{opcion}}</td>
                             <td>{{respuestaCorrecta}}</td>
                             <td>{{retroalimentacion}}</td>
-                        
-                        </tr>
+                            <td>
+                                <a class="btn btn-danger" href="/eliminarPregunta/{{idpregunta}}" role="button">Eliminar</a>
+                            </td>
                         {{/each}}
                     </tbody>
                 </table>
@@ -81,6 +81,8 @@
         </div>
     </div>
 </div>
+
+
 
 
     </div>

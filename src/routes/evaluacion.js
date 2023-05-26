@@ -101,10 +101,12 @@ router.get('/eliminarPregunta/:id',  async (req,res) =>{
         const pregunta = await pool.query('DELETE FROM pregunta WHERE idpregunta  = ?', [id]);
         const value = pregunta.affectedRows
         if(value==1){
-        res.send("Pregunta eliminada con exito")
+            req.flash('success', 'Pregunta eliminada con exito')
+            res.redirect('/bancoPreguntas1');
         }
         else{
-            res.send("Pregunta no existe en la base de datos")
+            req.flash('error', 'Pregunta con id: ' + id + ' no existe en la base de datos')
+            res.redirect('/bancoPreguntas1');
         }
     }
     
