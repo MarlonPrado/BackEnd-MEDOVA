@@ -45,7 +45,8 @@ router.post('/unidadUnoAgregar', async (req,res) =>{
         const nuevaPregunta = {
             idEvaAsoc: 1,
             dificultad, 
-            tipoPregunta,   
+            tipoPregunta, 
+            enunciado,  
             opcion: opciona + ";" + opcionb + ";" + opcionc + ";" + opciond,
             respuestaCorrecta: obtenerRespuesta(req.body.respuestaCorrecta), 
             retroalimentacion

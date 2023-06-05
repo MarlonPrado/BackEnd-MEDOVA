@@ -22,18 +22,7 @@ const schemasPreguntas = joi.object({
       'any.only': 'El tipo de pregunta debe ser uno de los valores permitidos: SELECTUNIC o SELECTMULTI.',
       'any.required': 'El tipo de pregunta es un campo obligatorio.'
     }),
-
-  enunciado: joi.string()
-    .min(1)
-    .max(1024)
-    .required()
-    .messages({
-      'string.base': 'El enunciado debe ser una cadena de caracteres.',
-      'string.min': 'El enunciado debe tener al menos 1 carácter.',
-      'string.max': 'El enunciado debe tener como máximo 1024 caracteres.',
-      'any.required': 'El enunciado es un campo obligatorio.'
-    }),
-
+enunciado: joi.string(),
   opciona: joi.string()
     .min(1)
     .max(112)

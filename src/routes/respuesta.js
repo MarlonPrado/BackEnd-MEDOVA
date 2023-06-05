@@ -5,34 +5,34 @@ const schemasPreguntas =  require('../schemas/schemasPreguntas');
 const joi = require('joi');
 
 //Inserta una nueva respuesta
-router.post('/EnviarRespuesta1', async (req,res) =>{
+router.post('/unidad17eva', async (req,res) =>{
     try{
 
         const  objRespuesta =
         {
-            valorRespuesta: "", 
+            valorRespuesta: req.body.valorRespuesta, 
             estado: 0,
-            idPreguntaAsociada: 0,
-            valorRespuesta2: "", 
+            idPreguntaAsociada: req.body.idPreguntaAsociada,
+            valorRespuesta2: req.body.valorRespuesta2, 
             estado2: 0,
-            idPreguntaAsociada2:0,
-            valorRespuesta3:"", 
-            estado3:0,
-           idPreguntaAsociada3:0,
-            valorRespuesta4:"", 
+            idPreguntaAsociada2:req.body.idPreguntaAsociada2,
+            valorRespuesta3:req.body.valorRespuesta3, 
+            estado3:0,  
+           idPreguntaAsociada3:req.body.idPreguntaAsociada3,
+            valorRespuesta4:req.body.valorRespuesta4, 
             estado4:0,
-            idPreguntaAsociada4:0,
-            valorRespuesta5:"", 
+            idPreguntaAsociada4:req.body.idPreguntaAsociada4,
+            valorRespuesta5:req.body.valorRespuesta5, 
             estado5:0,
-            idPreguntaAsociada5:0,
+            idPreguntaAsociada5:req.body.idPreguntaAsociada5,
             idUsuarioResponsable:0,
             puntaje:0
             }
 
-        console.log(req.body)
+        console.log("32", req.body)
         const validator =  await pool.query ('SELECT respuestaCorrecta, idpregunta FROM pregunta WHERE respuestaCorrecta = ? AND  idpregunta= ?  AND EXISTS ( SELECT * FROM estudiante WHERE idEstudiante = ?)', [req.body.valorRespuesta, req.body.idPreguntaAsociada, req.body.idUsuarioResponsable])
         if(JSON.stringify(validator)=="[]"){
-            console.log("Esta opcion de respuesta es inexistente, no corresponde a una pregunta o el usuario no es un usuario con rol estudiante/admin")
+            console.log("Esta opcion de respuesta es inexiste   nte, no corresponde a una pregunta o el usuario no es un usuario con rol estudiante/admin")
             //res.status(400).send("Respuesta Incorrecta");
             objRespuesta.estado=0
             console.log(objRespuesta.estado);
@@ -134,9 +134,33 @@ router.post('/EnviarRespuesta1', async (req,res) =>{
         }}
 
         const respuesta = await pool.query('INSERT INTO respuesta set ?', [objRespuesta])
-        res.send("Respuesta Almacenada con Exito");
-
+        console.log(objRespuesta);
+        if(objRespuesta.puntaje == 100){
+        req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, eres muy inteligente');
+        res.redirect('/dashboard');
     }
+    if(objRespuesta.puntaje == 80){
+        req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy bien superaste la meta');
+        res.redirect('/dashboard');
+    }
+    if(objRespuesta.puntaje == 60){
+        req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, bien pero puedes mejorar');
+        res.redirect('/dashboard');
+    }
+    if(objRespuesta.puntaje == 40){
+        req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy cerca pero puedes mejorar');
+        res.redirect('/dashboard');
+    }
+    if(objRespuesta.puntaje == 20){
+        req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, puedes mejorar');
+        res.redirect('/dashboard');
+    }
+    if(objRespuesta.puntaje == 0){
+        req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, se aprende del fracaso, del exito no mucho');
+        res.redirect('/dashboard');
+    }
+
+}
  
 catch(error){
     console.error(error)
