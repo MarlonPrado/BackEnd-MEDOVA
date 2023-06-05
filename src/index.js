@@ -1,4 +1,4 @@
-
+﻿
 const express = require('express');
 const morgan = require('morgan');
 const {engine} = require('express-handlebars');
@@ -11,7 +11,7 @@ const session = require('express-session');
 const mysqlstore = require('express-mysql-session')(session);
 const MySQLStore = require('express-mysql-session');
 require('dotenv').config();
-// Intializations
+// Intializationss
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
