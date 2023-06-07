@@ -70,12 +70,139 @@
 
                                     <td>
                                         <button id="deleteButton" class="btn btn-danger" data-toggle="modal"
-                                            data-target="#deleteModal">Eliminar</button>
+                                            data-target="#deleteModal-{{idpregunta}}">Eliminar</button>
                                         <button id="updateButton" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#updateModal">Actualizar</button>
+                                            data-target="#updateModal-{{idpregunta}}">Actualizar</button>
 
                                     </td>
                                 </tr>
+
+                                <!-- Modal -->
+
+                                <!-- Ventana modal de eliminación -->
+                                <div class="modal fade" id="deleteModal-{{idpregunta}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Eliminar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Estás seguro de que deseas eliminar este elemento?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+
+                                                <button id="confirmDeleteButton" type="button" class="btn btn-danger"
+                                                    onclick="window.location.href = '/eliminarPregunta/{{idpregunta}}';">Eliminar</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ventana modal de actualización -->
+                                <div class="modal fade" id="updateModal-{{idpregunta}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="updateModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="updateModalLabel">Actualizar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="modal-body">
+                                                    <form action="/editarPregunta/{{idpregunta}}" method="POST">
+                                                        <div class="form-group">
+                                                            <label for="dificultad">Dificultad</label>
+                                                            <input type="number" class="form-control" name="dificultad"
+                                                                value="{{dificultad}}">
+                                                        </div>
+                                                        <label class="form-label" for="default-06">Selecciona un
+                                                            tipo de Pregunta</label>
+                                                        <div class="form-control-wrap ">
+                                                            <div class="form-control-select">
+                                                                <select class="form-control" id="default-06"
+                                                                    name="tipoPregunta">
+                                                                    <option value="SELECTUNIC">
+                                                                        Seleccion unica
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="enunciado">Enunciado</label>
+                                                            <input type="text" class="form-control" name="enunciado"
+                                                                value="{{enunciado}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opciona">Opción A</label>
+                                                            <input type="text" class="form-control" name="opciona"
+                                                                value="{{splitAndAccess opcion 0}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opcionb">Opción B</label>
+                                                            <input type="text" class="form-control" name="opcionb"
+                                                                value="{{splitAndAccess opcion 1}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opcionc">Opción C</label>
+                                                            <input type="text" class="form-control" name="opcionc"
+                                                                value="{{splitAndAccess opcion 2}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opciond">Opción D</label>
+                                                            <input type="text" class="form-control" name="opciond"
+                                                                value="{{splitAndAccess opcion 3}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="respuestaCorrecta">Respuesta Correcta</label>
+                                                            <select class="form-control" name="respuestaCorrecta">
+                                                                <option  value=1>Opcion
+                                                                                                    A
+                                                                                                </option>
+                                                                                                <option value=2>Opcion
+                                                                                                    B
+                                                                                                </option>
+                                                                                                <option value=3>Opcion
+                                                                                                    C
+                                                                                                </option>
+                                                                                                <option value=4>Opcion
+                                                                                                    D
+                                                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="retroalimentacion">Retroalimentación</label>
+                                                            <input type="text" class="form-control"
+                                                                name="retroalimentacion" value="{{retroalimentacion}}">
+                                                        </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button id="confirmUpdateButton" type="submit"
+                                                    class="btn btn-primary">Actualizar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 {{/each}}
                             </tbody>
                         </table>
@@ -85,94 +212,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
 
-    <!-- Ventana modal de eliminación -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Eliminar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este elemento?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmDeleteButton" type="button" class="btn btn-danger">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ventana modal de actualización -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Actualizar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-           <div class="modal-body">
-  <div class="modal-body">
-  <form>
-    <div class="form-group">
-      <label for="dificultad">Dificultad</label>
-      <input type="number" class="form-control" id="dificultad" placeholder="1-3">
-    </div>
-    <div class="form-group">
-      <label for="enunciado">Enunciado</label>
-      <textarea class="form-control" id="enunciado" placeholder="Máximo 1024 caracteres"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="opciona">Opción A</label>
-      <input type="text" class="form-control" id="opciona" placeholder="Ingrese una opción">
-    </div>
-    <div class="form-group">
-      <label for="opcionb">Opción B</label>
-      <input type="text" class="form-control" id="opcionb" placeholder="Ingrese una opción">
-    </div>
-    <div class="form-group">
-      <label for="opcionc">Opción C</label>
-      <input type="text" class="form-control" id="opcionc" placeholder="Ingrese una opción">
-    </div>
-    <div class="form-group">
-      <label for="opciond">Opción D</label>
-      <input type="text" class="form-control" id="opciond" placeholder="Ingrese una opción">
-    </div>
-    <div class="form-group">
-      <label for="respuestaCorrecta">Respuesta Correcta</label>
-      <select class="form-control" id="respuestaCorrecta">
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="retroalimentacion">Retroalimentación</label>
-      <textarea class="form-control" id="retroalimentacion" placeholder="Digite el motivo de la respuesta"></textarea>
-    </div>
-  </form>
-</div>
-
-</div>
-
-               
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmUpdateButton" type="button" class="btn btn-primary">Actualizar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>

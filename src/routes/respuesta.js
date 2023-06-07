@@ -3,9 +3,11 @@ const router = express.Router();
 const pool = require('../db');
 const schemasPreguntas =  require('../schemas/schemasPreguntas');
 const joi = require('joi');
+const requireLogin = require('../lib/requireLogin');
+
 
 //Inserta una nueva respuesta
-router.post('/unidad17eva', async (req,res) =>{
+router.post('/unidad17eva', requireLogin, async (req,res) =>{
     try{
 
         const  objRespuesta =
@@ -167,7 +169,7 @@ catch(error){
     res.send("ERROR EN LA PETICION" + error)
 }})
 
-router.get('/bancoRespuestas',  async (req,res) =>{
+router.get('/bancoRespuestas',  requireLogin,  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM respuesta');
     console.log(pregunta);

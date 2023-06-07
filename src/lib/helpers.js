@@ -19,5 +19,10 @@ Handlebars.registerHelper('splitOptions', function(optionsString) {
   return optionsArray;
 });
 
+Handlebars.registerHelper('splitAndAccess', function (string, index) {
+  const array = string.split(';');
+  return array[index];
+});
+
 // Exportar Handlebars para usar en tu vista
 module.exports = Handlebars;

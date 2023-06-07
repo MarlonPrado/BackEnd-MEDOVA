@@ -13,7 +13,7 @@ const schemasPreguntas = joi.object({
     }),
 
   tipoPregunta: joi.string()
-    .regex(/^[a-zA-Z0-9]*$/)
+    .regex(/^[^<>]*$/)
     .valid('SELECTUNIC', 'SELECTMULTI')
     .required()
     .messages({
@@ -25,9 +25,9 @@ const schemasPreguntas = joi.object({
 enunciado: joi.string(),
   opciona: joi.string()
     .min(1)
-    .max(112)
+    .max(512)
     .required()
-    .regex(/^[a-zA-Z0-9]*$/)
+    .regex(/^[^<>]*$/)
     .messages({
       'string.base': 'La opción A debe ser una cadena de caracteres.',
       'string.min': 'La opción A debe tener al menos 1 carácter.',
@@ -38,7 +38,7 @@ enunciado: joi.string(),
 
   opcionb: joi.string()
     .min(1)
-    .max(112)
+    .max(512)
     .invalid(joi.ref('opciona'))
     .required()
     .messages({
@@ -51,7 +51,7 @@ enunciado: joi.string(),
 
   opcionc: joi.string()
     .min(1)
-    .max(112)
+    .max(512)
     .invalid(joi.ref('opciona'), joi.ref('opcionb'))
     .required()
     .messages({
@@ -64,7 +64,7 @@ enunciado: joi.string(),
 
   opciond: joi.string()
     .min(1)
-    .max(112)
+    .max(512)
     .invalid(joi.ref('opciona'), joi.ref('opcionb'), joi.ref('opcionc'))
     .required()
     .messages({

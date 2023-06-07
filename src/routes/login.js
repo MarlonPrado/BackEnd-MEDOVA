@@ -1,34 +1,54 @@
 const express = require('express');
-const pool = require('../db');
 const router = express.Router();
+const pool = require('../db');
 const bcrypt = require('bcryptjs');
 
-router.get('/login', async (req, res) => {
+// Renderiza el formulario de inicio de sesión
+router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.post('/login', async (req,res) =>{
+// Procesa el formulario de inicio de sesión
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
- 
-  const busqueda = await pool.query('SELECT * FROM usuario WhERE username  = ?', [req.body.username])
-  
-  if (busqueda.length!==0) {
-    console.log(busqueda)
-    // Comparar la contraseña proporcionada con la contraseña encriptada almacenada en la base de datos
-    if (bcrypt.compareSync(req.body.password, busqueda[0].password)) {
-      
-      
-      req.flash('success', 'Bienvenido usuario: ' +  busqueda[0].nombre)
-      res.redirect('/dashboard');
+    // Busca al usuario en la base de datos por su nombre de usuario
+    const result = await pool.query('SELECT * FROM usuario WHERE username = ?', [username]);
+    const user = result[0];
+
+    if (user) {
+      // Compara la contraseña proporcionada con la contraseña encriptada almacenada en la base de datos
+      if (bcrypt.compareSync(password, user.password)) {
+        // Inicio de sesión exitoso
+        req.session.userId = user.idUsuario; // Establece el ID del usuario en la sesión
+        console.log(req.session.userId)
+        req.flash('success', 'Bienvenido usuario: ' + user.nombre);
+        res.redirect('/dashboard');
+      } else {
+        req.flash('error', 'La contraseña es incorrecta. ¿Olvidaste tu contraseña?');
+        res.redirect('/login');
+      }
     } else {
-      
-      req.flash('error', 'La contraseña es incorrecta, ¿olvidaste tu contraseña?')
+      req.flash('error', 'No se encontró ningún usuario con ese nombre de usuario');
       res.redirect('/login');
     }
-  } else {
-    
-      req.flash('error', 'No se encontro ningun usuario con el correo electronico')
-      res.redirect('/login');
+  } catch (error) {
+    console.error(error);
+    req.flash('error', 'Ocurrió un error al iniciar sesión');
+    res.redirect('/login');
   }
-  }) 
-  module.exports = router;
+});
+
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error al destruir la sesión:', err);
+    }
+    res.redirect('/login'); // Redireccionar a la página de inicio de sesión después de cerrar sesión
+  });
+});
+
+
+
+module.exports = router;

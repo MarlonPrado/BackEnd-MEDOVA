@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const requireLogin = require('../lib/requireLogin');
 
-
-router.get('/unidad34', async (req,res) =>{
+router.get('/unidad34', requireLogin,  async (req,res) =>{
   res.render('page-unidad34');
 });
 

@@ -34,7 +34,7 @@ app.set('PORT', process.env.PORT || 4000 );
   app.use(session({
     secret: 'mysecret',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new mysqlstore(database)
   }));
 
@@ -84,6 +84,14 @@ app.use(require('./routes/unidad41'));
 app.use(require('./routes/unidad42'));
 app.use(require('./routes/unidad43'));
 app.use(require('./routes/unidad44eva'));
+
+app.use(require('./routes/unidad51'));
+app.use(require('./routes/unidad52'));
+app.use(require('./routes/unidad53'));
+app.use(require('./routes/unidad54'));
+app.use(require('./routes/unidad55'));
+app.use(require('./routes/unidad57eva'));
+
 app.use(require('./routes/index'));
 app.use(require('./routes/usuario'));
 app.use(require('./routes/tablainformacion'));
@@ -91,7 +99,6 @@ app.use(require('./routes/proceso'));
 app.use(require('./routes/register.js'));
 app.use(require('./routes/evaluacion'));
 app.use(require('./routes/respuesta'));
-app.use(require('./routes/autentificacion'));
 app.use(require('./routes/unidad11'));
 
 //Public
