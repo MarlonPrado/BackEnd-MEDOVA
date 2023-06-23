@@ -134,6 +134,7 @@ router.post('/unidad17eva', async (req,res) =>{
         }}
 
         const respuesta = await pool.query('INSERT INTO respuesta set ?', [objRespuesta])
+        const respuesta2 = await pool.query('UPDATE usuario SET progreso = 80 WHERE idUsuario = 100023')
         console.log(objRespuesta);
         if(objRespuesta.puntaje == 100){
         req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, eres muy inteligente');
