@@ -22,9 +22,7 @@ router.post('/login', async (req, res) => {
       if (bcrypt.compareSync(password, user.password)) {
         // Inicio de sesión exitoso
         req.session.userId = user.idUsuario; // Establece el ID del usuario en la sesión
-        console.log(req.session.userId)
-        req.flash('success', 'Bienvenido usuario: ' + user.nombre);
-        res.redirect('/dashboard');
+                res.redirect('/dashboard');
       } else {
         req.flash('error', 'La contraseña es incorrecta. ¿Olvidaste tu contraseña?');
         res.redirect('/login');

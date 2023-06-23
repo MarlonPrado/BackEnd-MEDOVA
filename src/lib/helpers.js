@@ -24,5 +24,28 @@ Handlebars.registerHelper('splitAndAccess', function (string, index) {
   return array[index];
 });
 
+
+Handlebars.registerHelper('progressBar', function(number) {
+  const progress = [
+    { width: '10%', color: 'bg-danger' },
+    { width: '20%', color: 'bg-warning' },
+    { width: '30%', color: 'bg-info' },
+    { width: '40%', color: 'bg-success' },
+    { width: '50%', color: 'bg-primary' },
+    { width: '60%', color: 'bg-info' },
+    { width: '70%', color: 'bg-danger' },
+    { width: '80%', color: 'bg-success' },
+    { width: '90%', color: 'bg-info' },
+    { width: '100%', color: 'bg-success' }
+  ];
+
+  const index = Math.min(Math.max(Math.floor(number / 10), 0), progress.length - 1);
+  const { width, color } = progress[index];
+
+  return new Handlebars.SafeString(`<div class="progress-bar ${color}" role="progressbar" style="width: ${width}" aria-valuenow="${number}" aria-valuemin="0" aria-valuemax="100"></div>`);
+});
+
+
+
 // Exportar Handlebars para usar en tu vista
 module.exports = Handlebars;

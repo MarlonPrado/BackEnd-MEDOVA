@@ -71,7 +71,7 @@ catch(error){
 router.get('/bancoPreguntas1',  requireLogin,  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta WHERE idEvaAsoc = 1');
-    console.log(pregunta);
+    
     
     res.render('respuestaslist', {pregunta });
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});
@@ -88,7 +88,7 @@ router.get('/bancoPreguntas1/:id',    requireLogin,  async (req,res) =>{
         const id = req.params.id;
         console.log(id)
         const pregunta =  await pool.query('SELECT * FROM pregunta WHERE idpregunta  = ?', [id]);
-        console.log(pregunta);
+        
        
         
 }
@@ -163,8 +163,8 @@ router.post('/editarPregunta/:id',  requireLogin,  async (req,res) =>{
     try{
 
         const id = req.params.id;
-        console.log(id);
-        console.log(req.body);
+        
+        
         const busqueda = await pool.query('SELECT idEvaAsoc FROM pregunta WHERE idpregunta  = ?', [id]);
        
     function obtenerRespuesta(indice) {     
@@ -203,7 +203,7 @@ let eva = 0;
         eva=5
     }
 
-    console.log("206",preguntaValidacion);
+    
     const { error } = schemasPreguntas.validate(preguntaValidacion) ;
     if (error) {
         req.flash('error', error.details[0].message);
@@ -225,7 +225,7 @@ let eva = 0;
     await pool.query('UPDATE pregunta SET ?  WHERE idpregunta  = ?', [nuevaPregunta, id])
     req.flash('success', 'Preguntas actualizado exitosamente')
     
-    console.log(busqueda);
+    
     if(busqueda[0].idEvaAsoc==1){
         res.redirect('/bancoPreguntas1');
     }
@@ -269,7 +269,7 @@ router.post('/unidadTresAgregar',  requireLogin,  async (req,res) =>{
             const respuesta = opcion[indice - 1];
             return respuesta;
           }
-          console.log(req.body);
+          
     
     const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
     const preguntaValidacion = {
@@ -317,7 +317,7 @@ catch(error){
 router.get('/bancoPreguntas3',  requireLogin,  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta WHERE idEvaAsoc = 3');
-    console.log(pregunta);
+    
     
     res.render('respuestaslist3', {pregunta });
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});
@@ -350,7 +350,7 @@ router.post('/unidadDosAgregar',  requireLogin,  async (req,res) =>{
             const respuesta = opcion[indice - 1];
             return respuesta;
           }
-          console.log(req.body);
+          
     
     const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
     const preguntaValidacion = {
@@ -398,7 +398,7 @@ catch(error){
 router.get('/bancoPreguntas2',  requireLogin,  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta WHERE idEvaAsoc = 2');
-    console.log(pregunta);
+    
     
     res.render('respuestaslist2', {pregunta });
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});
@@ -433,7 +433,7 @@ router.post('/unidadCuatroAgregar',  requireLogin,  async (req,res) =>{
             const respuesta = opcion[indice - 1];
             return respuesta;
           }
-          console.log(req.body);
+          
     
     const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
     const preguntaValidacion = {
@@ -481,7 +481,7 @@ catch(error){
 router.get('/bancoPreguntas4',  requireLogin,  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta WHERE idEvaAsoc = 4');
-    console.log(pregunta);
+    
     
     res.render('respuestaslist4', {pregunta });
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});
@@ -512,7 +512,7 @@ router.post('/unidadQuintoAgregar',  requireLogin,  async (req,res) =>{
             const respuesta = opcion[indice - 1];
             return respuesta;
           }
-          console.log(req.body);
+          
     
     const {ievasoc, dificultad, tipoPregunta, enunciado, opciona, opcionb, opcionc, opciond, respuestaCorrecta, retroalimentacion } = req.body;
     const preguntaValidacion = {
@@ -560,7 +560,7 @@ catch(error){
 router.get('/bancoPreguntas5',  requireLogin,  async (req,res) =>{
     try{
     const pregunta = await pool.query('SELECT * FROM pregunta WHERE idEvaAsoc = 5');
-    console.log(pregunta);
+    
     
     res.render('respuestaslist5', {pregunta });
     //res.render('evaluaciones/evaluacion1_List.hbs', {pregunta});

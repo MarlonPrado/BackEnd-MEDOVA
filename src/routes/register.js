@@ -11,7 +11,7 @@ router.get('/registro', (req,res) =>{
 router.post('/registro', async(req,res) =>{
     try{
         
-        console.log(req.body);
+        
         const { error } = schemasUsuario.validate(req.body) ;
         if (error) {
             req.flash('error', error.details[0].message);

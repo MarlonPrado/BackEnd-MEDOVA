@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
+    <meta property="og:title" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
+    <meta property="og:description" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
+    <meta property="og:image" content="https://w3crm.dexignzone.com/xhtml/social-image.png">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- PAGE TITLE HERE -->
+    <title>MEDOVA AYD</title>
+
+
+    <link href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css">
+    <link href="/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/vendor/jvmap/jquery-jvectormap.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- tagify-css -->
+    <link href="./vendor/tagify/dist/tagify.css" rel="stylesheet">
+
+    <!-- Style css -->
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body data-typography="poppins" data-theme-version="light" data-layout="vertical">
+    <div id="main-wrapper">
+        <!--********** navbar horizontal*************-->
+        {{>navbarhor}}
+        <!--********** navbar vertical*************-->
+        {{> navbar}}
+        <div class="content-body">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resultados</h5>
+                    <br><br>
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Enunciado</th>
+                                    <th>Dificultad</th>
+                                    <th>Opción</th>
+                                    <th>Respuesta Correcta</th>
+                                    <th>Retroalimentación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each pregunta}}
+                                <tr>
+                                    <td style="word-break: break-word; white-space: normal;">{{enunciado}}</td>
+                                    <td style="text-center">{{dificultad}}</td>
+                                    <td style="word-break: break-word; white-space: normal;">{{opcion}}</td>
+                                    <td style="word-break: break-word; white-space: normal;">{{respuestaCorrecta}}</td>
+                                    <td style="word-break: break-word; white-space: normal;">{{retroalimentacion}}</td>
+
+
+                                    <td>
+                                        <button id="deleteButton" class="btn btn-danger" data-toggle="modal"
+                                            data-target="#deleteModal-{{idpregunta}}">Eliminar</button>
+                                        <button id="updateButton" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#updateModal-{{idpregunta}}">Actualizar</button>
+
+                                    </td>
+                                </tr>
+
+                                <!-- Modal -->
+
+                                <!-- Ventana modal de eliminación -->
+                                <div class="modal fade" id="deleteModal-{{idpregunta}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Eliminar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Estás seguro de que deseas eliminar este elemento?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+
+                                                <button id="confirmDeleteButton" type="button" class="btn btn-danger"
+                                                    onclick="window.location.href = '/eliminarPregunta/{{idpregunta}}';">Eliminar</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ventana modal de actualización -->
+                                <div class="modal fade" id="updateModal-{{idpregunta}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="updateModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="updateModalLabel">Actualizar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="modal-body">
+                                                    <form action="/editarPregunta/{{idpregunta}}" method="POST">
+                                                        <div class="form-group">
+                                                            <label for="dificultad">Dificultad</label>
+                                                            <input type="number" class="form-control" name="dificultad"
+                                                                value="{{dificultad}}">
+                                                        </div>
+                                                        <label class="form-label" for="default-06">Selecciona un
+                                                            tipo de Pregunta</label>
+                                                        <div class="form-control-wrap ">
+                                                            <div class="form-control-select">
+                                                                <select class="form-control" id="default-06"
+                                                                    name="tipoPregunta">
+                                                                    <option value="SELECTUNIC">
+                                                                        Seleccion unica
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="enunciado">Enunciado</label>
+                                                            <input type="text" class="form-control" name="enunciado"
+                                                                value="{{enunciado}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opciona">Opción A</label>
+                                                            <input type="text" class="form-control" name="opciona"
+                                                                value="{{splitAndAccess opcion 0}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opcionb">Opción B</label>
+                                                            <input type="text" class="form-control" name="opcionb"
+                                                                value="{{splitAndAccess opcion 1}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opcionc">Opción C</label>
+                                                            <input type="text" class="form-control" name="opcionc"
+                                                                value="{{splitAndAccess opcion 2}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="opciond">Opción D</label>
+                                                            <input type="text" class="form-control" name="opciond"
+                                                                value="{{splitAndAccess opcion 3}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="respuestaCorrecta">Respuesta Correcta</label>
+                                                            <select class="form-control" name="respuestaCorrecta">
+                                                                <option  value=1>Opcion
+                                                                                                    A
+                                                                                                </option>
+                                                                                                <option value=2>Opcion
+                                                                                                    B
+                                                                                                </option>
+                                                                                                <option value=3>Opcion
+                                                                                                    C
+                                                                                                </option>
+                                                                                                <option value=4>Opcion
+                                                                                                    D
+                                                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="retroalimentacion">Retroalimentación</label>
+                                                            <input type="text" class="form-control"
+                                                                name="retroalimentacion" value="{{retroalimentacion}}">
+                                                        </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button id="confirmUpdateButton" type="submit"
+                                                    class="btn btn-primary">Actualizar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <!--**********************************
+            Footer start
+        ***********************************-->
+    {{> footerhor}}
+
+    <!-- Required vendors -->
+    <script src="./vendor/global/global.min.js"></script>
+    <script src="./vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="./vendor/apexchart/apexchart.js"></script>
+    <!-- Dashboard 1 -->
+    <script src="./js/dashboard/dashboard-1.js"></script>
+    <script src="./vendor/draggable/draggable.js"></script>
+    <!-- tagify -->
+    <script src="./vendor/tagify/dist/tagify.js"></script>
+    <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="./vendor/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="./vendor/datatables/js/buttons.html5.min.js"></script>
+    <script src="./vendor/datatables/js/jszip.min.js"></script>
+    <script src="./js/plugins-init/datatables.init.js"></script>
+    <!-- Apex Chart -->
+    <script src="vendor/bootstrap-datetimepicker/js/moment.js"></script>
+    <script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Vectormap -->
+    <script src="./vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="./vendor/jqvmap/js/jquery.vmap.world.js"></script>
+    <script src="./vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="./js/custom.js"></script>
+    <script src="./js/deznav-init.js"></script>
+    <script src="./js/demo.js"></script>
+    <script src="./js/styleSwitcher.js"></script>
+
+
+</body>
+
+
+</html>

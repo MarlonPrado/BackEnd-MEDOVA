@@ -93,6 +93,7 @@ app.use(require('./routes/unidad55'));
 app.use(require('./routes/unidad57eva'));
 
 app.use(require('./routes/index'));
+app.use(require('./routes/vistas'));
 app.use(require('./routes/usuario'));
 app.use(require('./routes/tablainformacion'));
 app.use(require('./routes/proceso'));
@@ -105,5 +106,5 @@ app.use(require('./routes/unidad11'));
 app.use(express.static(path.join(__dirname, 'public')));
 //Arrancando el servidor
 app.listen(app.get('PORT'), () => {
-    console.log('Servidor corriendo en el puerto', app.get('PORT'));
+    
 });

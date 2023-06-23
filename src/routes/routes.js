@@ -9,7 +9,7 @@ router.get('/dashboard',requireLogin, (req, res ) => {
         const { nombre, correo } = req.userData;
         // Utiliza los valores de nombre y correo como necesites
 
-        console.log(req.userData);
+        
         res.render('dashboard', { nombre, correo });
       } else {
         res.render('dashboard');
