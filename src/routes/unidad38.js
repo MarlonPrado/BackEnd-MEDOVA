@@ -3,8 +3,8 @@ const router = express.Router();
 const requireLogin = require('../lib/requireLogin');
 
 router.get('/unidad38', requireLogin, async (req, res) => {
-  const { nombre: unombreuser, correo: ucorreouser, progreso: uprogresouser } = req.userData;
-  res.render('page-unidad38', { unombreuser, ucorreouser, uprogresouser });
+ const { nombre: unombreuser, correo: ucorreouser, progreso: uprogresouser, parametro: parametro, parametro2: parametro2, parametro3: parametro3, parametro4: parametro4, parametro5: parametro5 } = req.userData;
+  res.render('page-unidad38', { unombreuser, ucorreouser, uprogresouser, parametro, parametro2, parametro3, parametro4, parametro5 });
 });
 
 module.exports = router;

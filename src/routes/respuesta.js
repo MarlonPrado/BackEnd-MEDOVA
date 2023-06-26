@@ -10,6 +10,7 @@ const requireLogin = require('../lib/requireLogin');
 router.post('/unidad17eva', requireLogin, async (req,res) =>{
     try{
 
+        console.log("13", req.body)
         const  objRespuesta =
         {
             valorRespuesta: req.body.valorRespuesta, 
@@ -31,7 +32,11 @@ router.post('/unidad17eva', requireLogin, async (req,res) =>{
             puntaje:0
             }
 
+            const progresouser = req.body.progresouser
+            console.log("32", progresouser )
+
         console.log("32", req.body)
+        console.log("36", req.body.idUsuarioResponsable, req.body.idPreguntaAsociada, req.body.valorRespuesta)
         const validator =  await pool.query ('SELECT respuestaCorrecta, idpregunta FROM pregunta WHERE respuestaCorrecta = ? AND  idpregunta= ?  AND EXISTS ( SELECT * FROM estudiante WHERE idEstudiante = ?)', [req.body.valorRespuesta, req.body.idPreguntaAsociada, req.body.idUsuarioResponsable])
         if(JSON.stringify(validator)=="[]"){
             console.log("Esta opcion de respuesta es inexiste   nte, no corresponde a una pregunta o el usuario no es un usuario con rol estudiante/admin")
@@ -135,31 +140,46 @@ router.post('/unidad17eva', requireLogin, async (req,res) =>{
             //res.status(200).send("Respuesta Correcta");
         }}
 
+     if (objRespuesta.puntaje >= 60) {
+  const unidad1 = await pool.query('SELECT * FROM usuario WHERE idUsuario = 100023 AND parametro = 0');
+
+  if (unidad1.length > 0) {
+    const usuario = unidad1[0];
+    const progresouser = parseInt(usuario.progreso); // Convertir a número entero
+
+    // Realizar las operaciones necesarias con el usuario
+
+    // Actualizar el progreso del estudiante sumando 20
+    const nuevoProgreso = progresouser + 20;
+
+    const progreso = await pool.query('UPDATE usuario SET progreso = ?, parametro = 1 WHERE idUsuario = 100023', [nuevoProgreso]);
+
+  }
+}
         const respuesta = await pool.query('INSERT INTO respuesta set ?', [objRespuesta])
-        
         if(objRespuesta.puntaje == 100){
         req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, eres muy inteligente');
-        res.redirect('/dashboard');
+        res.redirect('/unidad21');
     }
     if(objRespuesta.puntaje == 80){
         req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy bien superaste la meta');
-        res.redirect('/dashboard');
+        res.redirect('/unidad21');
     }
     if(objRespuesta.puntaje == 60){
         req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, bien pero puedes mejorar');
-        res.redirect('/dashboard');
+        res.redirect('/unidad21');
     }
     if(objRespuesta.puntaje == 40){
         req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy cerca pero puedes mejorar');
-        res.redirect('/dashboard');
+        res.redirect('/unidad1');
     }
     if(objRespuesta.puntaje == 20){
         req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, puedes mejorar');
-        res.redirect('/dashboard');
+        res.redirect('/unidad1');
     }
     if(objRespuesta.puntaje == 0){
         req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, se aprende del fracaso, del exito no mucho');
-        res.redirect('/dashboard');
+        res.redirect('/unidad1');
     }
 
 }
@@ -207,6 +227,9 @@ router.post('/unidad24eva', requireLogin, async (req,res) =>{
             puntaje:0
             }
 
+        const progresouser = req.body.progresouser
+        console.log("32", progresouser )
+
         console.log("32", req.body)
         const validator =  await pool.query ('SELECT respuestaCorrecta, idpregunta FROM pregunta WHERE respuestaCorrecta = ? AND  idpregunta= ?  AND EXISTS ( SELECT * FROM estudiante WHERE idEstudiante = ?)', [req.body.valorRespuesta, req.body.idPreguntaAsociada, req.body.idUsuarioResponsable])
         if(JSON.stringify(validator)=="[]"){
@@ -310,35 +333,53 @@ router.post('/unidad24eva', requireLogin, async (req,res) =>{
             console.log("Respuesta Correcta")
             //res.status(200).send("Respuesta Correcta");
         }}
+        console.log(objRespuesta.puntaje )
+        console.log(objRespuesta )
 
-        const respuesta = await pool.query('INSERT INTO respuesta set ?', [objRespuesta])
-        
-        if(objRespuesta.puntaje == 100){
-        req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, eres muy inteligente');
-        res.redirect('/dashboard');
-    }
-    if(objRespuesta.puntaje == 80){
-        req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy bien superaste la meta');
-        res.redirect('/dashboard');
-    }
-    if(objRespuesta.puntaje == 60){
-        req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, bien pero puedes mejorar');
-        res.redirect('/dashboard');
-    }
-    if(objRespuesta.puntaje == 40){
-        req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy cerca pero puedes mejorar');
-        res.redirect('/dashboard');
-    }
-    if(objRespuesta.puntaje == 20){
-        req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, puedes mejorar');
-        res.redirect('/dashboard');
-    }
-    if(objRespuesta.puntaje == 0){
-        req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, se aprende del fracaso, del exito no mucho');
-        res.redirect('/dashboard');
-    }
-
-}
+        if (objRespuesta.puntaje >= 60) {
+            const unidad1 = await pool.query('SELECT * FROM usuario WHERE idUsuario = 100023 AND parametro2 = 0');
+          
+            if (unidad1.length > 0) {
+                console.log("Entro")
+              const usuario = unidad1[0];
+              const progresouser = parseInt(usuario.progreso); // Convertir a número entero
+          
+              // Realizar las operaciones necesarias con el usuario
+          
+              // Actualizar el progreso del estudiante sumando 20
+              const nuevoProgreso = progresouser + 20;
+          
+              const progreso = await pool.query('UPDATE usuario SET progreso = ?, parametro2 = 1 WHERE idUsuario = 100023', [nuevoProgreso]);
+          
+            }
+          }
+                  const respuesta = await pool.query('INSERT INTO respuesta set ?', [objRespuesta])
+                  if(objRespuesta.puntaje == 100){
+                  req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, eres muy inteligente');
+                  res.redirect('/unidad31');
+              }
+              if(objRespuesta.puntaje == 80){
+                  req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy bien superaste la meta');
+                  res.redirect('/unidad31');
+              }
+              if(objRespuesta.puntaje == 60){
+                  req.flash('success', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, bien pero puedes mejorar');
+                  res.redirect('/unidad31');
+              }
+              if(objRespuesta.puntaje == 40){
+                  req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, muy cerca pero puedes mejorar');
+                  res.redirect('/unidad21');
+              }
+              if(objRespuesta.puntaje == 20){
+                  req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, puedes mejorar');
+                  res.redirect('/unidad21');
+              }
+              if(objRespuesta.puntaje == 0){
+                  req.flash('error', 'Sacaste: ' + objRespuesta.puntaje + ' puntos de 100 posibles, se aprende del fracaso, del exito no mucho');
+                  res.redirect('/unidad21');
+              }
+          
+          }
  
 catch(error){
     console.error(error)

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="keywords" content="">
@@ -33,6 +34,57 @@
     <!-- Style css -->
     <link href="/css/style.css" rel="stylesheet">
 
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .navbar .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .navbar .lock-icon {
+      display: none;
+      font-size: 18px;
+      margin-right: 10px;
+      color: red;
+    }
+
+    .navbar.unlocked .menu-icon {
+      display: inline-block;
+    }
+
+    .navbar.locked .menu-icon {
+      display: none;
+    }
+
+    .navbar.locked .lock-icon {
+      display: inline-block;
+    }
+
+    .navbar .menu-items {
+      display: none;
+      padding: 10px;
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .navbar.unlocked .menu-items {
+      display: block;
+    }
+
+    .navbar.locked .menu-items {
+      display: none;
+    }
+  </style>
+
 </head>
 
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical">
@@ -48,127 +100,35 @@
 
         <body>
 
-<div style="margin-left: 15%; margin-top: 5%;">
+  <nav class="navbar locked">
+    <i class="fas fa-lock lock-icon"></i>
+    <i class="fas fa-bars menu-icon"></i>
+    <div class="menu-items">
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Acerca</a></li>
+        <li><a href="#">Servicios</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
 
-<form action="/unidad24eva" method="POST">
-
-  <div class="card">
-    <h5 class="card-header">Pregunta #01</h5>
-    <div class="card-body">
-
-      <h5 class="card-title">{{splitOptions pregunta.0.enunciado}}</h5>
-<div class="card-body">
-</div>
+  <script>
+    // Verificar si se ha completado el nivel anterior
+    var nivelAnteriorCompletado = false; // Cambia esto según tus necesidades
     
-        {{#each (splitOptions pregunta.0.opcion)}}
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="valorRespuesta" id="exampleRadios4_{{@index}}" value="{{this}}">
-          <label class="form-check-label" for="exampleRadios2_{{@index}}">
-           {{this}}
-          </label>
-        </div>
-        {{/each}}
+    // Obtener elementos
+    var navbar = document.querySelector('.navbar');
 
-    </div>
-</div>
-
-  <div class="card">
-    <h5 class="card-header">Pregunta #02</h5>
-    <div class="card-body">
-
-      <h5 class="card-title">{{splitOptions pregunta.1.enunciado}}</h5>
-<div class="card-body">
-</div>
-     
-        {{#each (splitOptions pregunta.1.opcion)}}
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="valorRespuesta2" id="exampleRadios4_{{@index}}" value="{{this}}">
-          <label class="form-check-label" for="exampleRadios2_{{@index}}">
-           {{this}}
-          </label>
-        </div>
-        {{/each}}
-
-    </div>
-</div>
-
-
-  <div class="card">
-    <h5 class="card-header">Pregunta #03</h5>
-    <div class="card-body">
-
-      <h5 class="card-title">{{splitOptions pregunta.2.enunciado}}</h5>
-<div class="card-body">
-</div>
-     
-        {{#each (splitOptions pregunta.2.opcion)}}
-        <div class="form-check">
-          <input class="form-check-input" type="radio"  name="valorRespuesta3" id="exampleRadios4_{{@index}}" value="{{this}}">
-          <label class="form-check-label" for="exampleRadios2_{{@index}}">
-           {{this}}
-          </label>
-        </div>
-        {{/each}}
-
-    </div>
-</div>
-
-
-  <div class="card">
-    <h5 class="card-header">Pregunta #04</h5>
-    <div class="card-body">
-
-      <h5 class="card-title">{{splitOptions pregunta.3.enunciado}}</h5>
-<div class="card-body">
-</div>
-     
-        {{#each (splitOptions pregunta.3.opcion)}}
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="valorRespuesta4" id="exampleRadios4_{{@index}}" value="{{this}}">
-          <label class="form-check-label" for="exampleRadios2_{{@index}}">
-           {{this}}
-          </label>
-        </div>
-        {{/each}}
-
-    </div>
-</div>
-
-
-  <div class="card">
-    <h5 class="card-header">Pregunta #05</h5>
-    <div class="card-body">
-
-      <h5 class="card-title">{{splitOptions pregunta.4.enunciado}}</h5>
-<div class="card-body">
-</div>
-     
-        {{#each (splitOptions pregunta.4.opcion)}}
-        <div class="form-check">
-          <input class="form-check-input" type="radio"  name="valorRespuesta5" id="exampleRadios4_{{@index}}" value="{{this}}">
-          <label class="form-check-label" for="exampleRadios2_{{@index}}">
-           {{this}}
-          </label>
-        </div>
-        {{/each}}
-
-    </div>
-</div>
-
-<input type="text" name="idPreguntaAsociada" value="{{pregunta.0.idpregunta}}" hidden>
-<input type="text" name="idPreguntaAsociada2"  value="{{pregunta.1.idpregunta}}" hidden>
-<input type="text" name="idPreguntaAsociada3"  value="{{pregunta.2.idpregunta}}" hidden>
-<input type="text" name="idPreguntaAsociada4"  value="{{pregunta.3.idpregunta}}" hidden>
-<input type="text" name="idPreguntaAsociada5"  value="{{pregunta.4.idpregunta}}" hidden>
-<input type="number" name="progresouser"  value="{{uprogresouser}}" hidden>
-A 
-<input type="text" name="idUsuarioResponsable"  value="10004" hidden>
-<button type="submit" class="btn btn-success">Enviar Respuestas</button>
-  
-</form>
-        
-            </div>
-
+    // Agregar o quitar clases según el estado del nivel anterior
+    if (nivelAnteriorCompletado) {
+      navbar.classList.remove('locked');
+      navbar.classList.add('unlocked');
+    } else {
+      navbar.classList.remove('unlocked');
+      navbar.classList.add('locked');
+    }
+  </script>
 
         </body>
 

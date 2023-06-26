@@ -62,7 +62,7 @@
     
         {{#each (splitOptions pregunta.0.opcion)}}
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="valorRespuesta" id="exampleRadios4_{{@index}}" value={{this}}>
+          <input class="form-check-input" type="radio" name="valorRespuesta" id="exampleRadios4_{{@index}}" value="{{this}}">
           <label class="form-check-label" for="exampleRadios2_{{@index}}">
            {{this}}
           </label>
@@ -82,7 +82,7 @@
      
         {{#each (splitOptions pregunta.1.opcion)}}
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="valorRespuesta2" id="exampleRadios4_{{@index}}" value={{this}}>
+          <input class="form-check-input" type="radio" name="valorRespuesta2" id="exampleRadios4_{{@index}}" value="{{this}}">
           <label class="form-check-label" for="exampleRadios2_{{@index}}">
            {{this}}
           </label>
@@ -103,7 +103,7 @@
      
         {{#each (splitOptions pregunta.2.opcion)}}
         <div class="form-check">
-          <input class="form-check-input" type="radio"  name="valorRespuesta3" id="exampleRadios4_{{@index}}" value={{this}}>
+          <input class="form-check-input" type="radio"  name="valorRespuesta3" id="exampleRadios4_{{@index}}" value="{{this}}">
           <label class="form-check-label" for="exampleRadios2_{{@index}}">
            {{this}}
           </label>
@@ -124,7 +124,7 @@
      
         {{#each (splitOptions pregunta.3.opcion)}}
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="valorRespuesta4" id="exampleRadios4_{{@index}}" value={{this}}>
+          <input class="form-check-input" type="radio" name="valorRespuesta4" id="exampleRadios4_{{@index}}" value="{{this}}">
           <label class="form-check-label" for="exampleRadios2_{{@index}}">
            {{this}}
           </label>
@@ -145,7 +145,7 @@
      
         {{#each (splitOptions pregunta.4.opcion)}}
         <div class="form-check">
-          <input class="form-check-input" type="radio"  name="valorRespuesta5" id="exampleRadios4_{{@index}}" value={{this}}>
+          <input class="form-check-input" type="radio"  name="valorRespuesta5" id="exampleRadios4_{{@index}}" value="{{this}}">
           <label class="form-check-label" for="exampleRadios2_{{@index}}">
            {{this}}
           </label>
@@ -160,6 +160,7 @@
 <input type="text" name="idPreguntaAsociada3"  value="{{pregunta.2.idpregunta}}" hidden>
 <input type="text" name="idPreguntaAsociada4"  value="{{pregunta.3.idpregunta}}" hidden>
 <input type="text" name="idPreguntaAsociada5"  value="{{pregunta.4.idpregunta}}" hidden>
+<input type="number" name="progresouser"  value="{{uprogresouser}}" hidden>
 A 
 <input type="text" name="idUsuarioResponsable"  value="10004" hidden>
 <button type="submit" class="btn btn-success">Enviar Respuestas</button>
